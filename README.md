@@ -20,4 +20,4 @@ Projeto simples que simula um sistema bancário com contas normais e contas espe
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/VcsDevs/sistema-bancario-java
+git clone git clone https://github.com/VictorCharro/sistema-bancario-java.git
