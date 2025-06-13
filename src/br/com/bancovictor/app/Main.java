@@ -22,61 +22,21 @@ public class Main {
 
             System.out.print("Digite sua opção: ");
             int opcao = sc.nextInt();
+            sc.nextLine();
 
             switch (opcao) {
                 case 1:
                     System.out.print("Essa conta é especial? (S/N): ");
-                    String especial = sc.next().trim().toUpperCase();
+                    String especial = sc.nextLine().trim().toUpperCase();
 
-                    if (especial.equals("S")) {
-                        System.out.print("\nNome: ");
-                        sc.nextLine();
-                        String nome = sc.nextLine();
-
-                        System.out.print("CPF: ");
-                        long cpf = sc.nextInt();
-
-                        boolean cpfExiste = false;
-                        for (Cliente c : dadosCliente) {
-                            if (c.getCpf() == cpf) {
-                                cpfExiste = true;
-                                break;
-                            }
-                        }
-                        if (cpfExiste) {
-                            System.out.println("ERRO: Já existe uma conta cadastrada com esse CPF.");
-                            break;
-                        }
-
-                        System.out.print("E-mail: ");
-                        sc.nextLine();
-                        String email = sc.nextLine();
-
-                        int numeroConta = dadosCliente.size() + 1;
-
-                        System.out.print("Saldo inicial: R$");
-                        double saldo = sc.nextDouble();
-
-                        int id = dadosConta.size() + 1;
-
-                        ContaEspecial novaConta = new ContaEspecial(numeroConta, saldo, id, cpf);
-                        dadosConta.add(novaConta);
-
-                        System.out.println("Conta criada com sucesso!");
-                        novaConta.exibirInfo();
-                        break;
-                    }
-                    else {
                     System.out.print("\nNome: ");
-                    sc.nextLine();
                     String nome = sc.nextLine();
 
-                    System.out.print("CPF: ");
-                    long cpf = sc.nextInt();
+                    String cpf = Cliente.lerCPF(sc.next());
 
                     boolean cpfExiste = false;
                     for (Cliente c : dadosCliente) {
-                        if (c.getCpf() == cpf) {
+                        if (c.getCpf().equals(cpf)) {
                             cpfExiste = true;
                             break;
                         }
@@ -87,26 +47,28 @@ public class Main {
                     }
 
                     System.out.print("E-mail: ");
-                    sc.nextLine();
                     String email = sc.nextLine();
 
-                    Cliente novoCliente = new Cliente(nome, cpf, email);
-                    dadosCliente.add(novoCliente);
-
                     int numeroConta = dadosCliente.size() + 1;
+                    int id = dadosConta.size() + 1;
 
                     System.out.print("Saldo inicial: R$");
                     double saldo = sc.nextDouble();
 
-                    int id = dadosConta.size() + 1;
+                    Cliente novoCliente = new Cliente(nome, cpf, email);
+                    dadosCliente.add(novoCliente);
 
-                    Conta novaConta = new Conta(numeroConta, saldo, id, cpf);
+                    Conta novaConta;
+                    if (especial.equals("S")) {
+                        novaConta = new ContaEspecial(numeroConta, saldo, id, cpf);
+                    } else {
+                        novaConta = new Conta(numeroConta, saldo, id, cpf);
+                    }
                     dadosConta.add(novaConta);
-
                     System.out.println("Conta criada com sucesso!");
                     novaConta.exibirInfo();
                     break;
-                    }
+
 
                 case 2:
                     System.out.print("\nDigite o numero da conta para depositar: ");
@@ -173,8 +135,7 @@ public class Main {
                             System.out.print("Digite o valor para transferência: R$");
                             quantidade = sc.nextDouble();
                             contaSaida.transferir(quantidade, contaDestino);
-                        }
-                        else {
+                        } else {
                             System.out.println("ERRO: Conta inexistente");
                         }
                         break;

@@ -15,9 +15,9 @@ public class Conta {
     private int id;
     public LocalDateTime dataCriacao;
     protected ArrayList<Operacao> historico;
-    private long cpfCliente;
+    private String cpfCliente;
 
-    public Conta(int numeroConta, double saldoInicial, int id, long cpf) {
+    public Conta(int numeroConta, double saldoInicial, int id, String cpf) {
         this.numeroConta = numeroConta;
         this.saldo = saldoInicial;
         this.id = id;
@@ -46,7 +46,7 @@ public class Conta {
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             System.out.printf("Saldo atual: R$%.2f\n", this.saldo);
         } else if (quantidade > saldo) {
-            System.out.println("Saldo insuficiente!");
+            System.out.printf("Saldo insuficiente! Saldo atual: R$ %.2f%n", getSaldo());
         } else {
             System.out.println("Digite um valor positivo!");
         }
@@ -74,7 +74,7 @@ public class Conta {
         }
     }
 
-    public long getCpfCliente() {
+    public String getCpfCliente() {
         return cpfCliente;
     }
 

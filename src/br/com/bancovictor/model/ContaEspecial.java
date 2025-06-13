@@ -14,7 +14,7 @@ public final class ContaEspecial extends Conta {
     private double limiteCredito;   // valor máximo do crédito
     private double creditoDisponivel; // crédito que ainda pode ser usado
 
-    public ContaEspecial(int numeroConta, double saldoInicial, int id, long cpf) {
+    public ContaEspecial(int numeroConta, double saldoInicial, int id, String cpf) {
         super(numeroConta, saldoInicial, id, cpf);
         this.limiteCredito = saldoInicial * 0.1;  // 10% do saldo inicial
         this.creditoDisponivel = limiteCredito;  // crédito começa cheio
