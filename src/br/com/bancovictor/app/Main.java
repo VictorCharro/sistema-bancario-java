@@ -1,7 +1,5 @@
 package br.com.bancovictor.app;
-import br.com.bancovictor.model.Cliente;
-import br.com.bancovictor.model.Conta;
-import br.com.bancovictor.model.ContaEspecial;
+import br.com.bancovictor.model.*;
 import br.com.bancovictor.ui.Menu;
 
 import java.util.ArrayList;
@@ -26,13 +24,13 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Essa conta é especial? (S/N): ");
-                    String especial = sc.nextLine().trim().toUpperCase();
+                    System.out.print("Essa conta é Corrente, Poupança ou Especial? (C/P/E): ");
+                    char tipoConta = sc.nextLine().trim().toUpperCase().charAt(0);
 
                     System.out.print("\nNome: ");
-                    String nome = sc.nextLine();
+                    String nome = sc.next();
 
-                    String cpf = Cliente.lerCPF(sc.next());
+                    String cpf = Cliente.lerCPF(sc.nextLine());
 
                     boolean cpfExiste = false;
                     for (Cliente c : dadosCliente) {
@@ -53,22 +51,24 @@ public class Main {
                     int id = dadosConta.size() + 1;
 
                     System.out.print("Saldo inicial: R$");
-                    double saldo = sc.nextDouble();
+                    double saldoInicial = sc.nextDouble();
 
                     Cliente novoCliente = new Cliente(nome, cpf, email);
                     dadosCliente.add(novoCliente);
 
                     Conta novaConta;
-                    if (especial.equals("S")) {
-                        novaConta = new ContaEspecial(numeroConta, saldo, id, cpf);
-                    } else {
-                        novaConta = new Conta(numeroConta, saldo, id, cpf);
+                    if (tipoConta == 'C') {
+                        novaConta = new ContaCorrente(numeroConta, saldoInicial, id, cpf);
+                    } else if (tipoConta =='P') {
+                        novaConta = new ContaPoupanca(numeroConta, saldoInicial, id, cpf);
+                    }
+                    else {
+                        novaConta = new ContaEspecial(numeroConta, saldoInicial, id, cpf);
                     }
                     dadosConta.add(novaConta);
                     System.out.println("Conta criada com sucesso!");
                     novaConta.exibirInfo();
                     break;
-
 
                 case 2:
                     System.out.print("\nDigite o numero da conta para depositar: ");

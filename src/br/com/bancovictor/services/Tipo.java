@@ -5,4 +5,5 @@ public enum Tipo {
     SAQUE,
     TRANSFERENCIA_REALIZADA,
     TRANSFERENCIA_RECEBIDA,
+    RENDIMENTO,
 }

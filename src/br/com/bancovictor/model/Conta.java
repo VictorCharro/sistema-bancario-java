@@ -1,6 +1,5 @@
 package br.com.bancovictor.model;
 import br.com.bancovictor.services.Operacao;
-import br.com.bancovictor.services.Tipo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 
 import static br.com.bancovictor.services.Tipo.*;
 
-public class Conta {
+public abstract class Conta {
 
     private int numeroConta;
     protected double saldo;

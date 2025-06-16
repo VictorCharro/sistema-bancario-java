@@ -1,11 +1,7 @@
 package br.com.bancovictor.model;
-
-import br.com.bancovictor.model.Conta;
 import br.com.bancovictor.services.Operacao;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import static br.com.bancovictor.services.Tipo.DEPOSITO;
 import static br.com.bancovictor.services.Tipo.SAQUE;
 
