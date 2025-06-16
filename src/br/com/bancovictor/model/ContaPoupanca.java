@@ -2,13 +2,12 @@ package br.com.bancovictor.model;
 
 import br.com.bancovictor.services.Operacao;
 import br.com.bancovictor.services.Tipo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ContaPoupanca extends Conta{
     private LocalDateTime ultimorendimento;
-    private double rendimento;
+    private final double rendimento;
 
     public ContaPoupanca(int numeroConta, double saldoInicial, int id, String cpf) {
         super(numeroConta, saldoInicial, id, cpf);

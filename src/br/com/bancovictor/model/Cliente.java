@@ -55,6 +55,7 @@ public class Cliente {
                 return cpf;
             } else {
                 System.out.println("\u001B[31mCPF inválido! Deve conter exatamente 11 dígitos numéricos.\u001B[0m");
+            sc.close();
             }
         }
     }

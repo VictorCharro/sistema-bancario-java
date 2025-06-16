@@ -1,13 +1,13 @@
 package br.com.bancovictor.model;
 import br.com.bancovictor.services.Operacao;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import static br.com.bancovictor.services.Tipo.DEPOSITO;
 import static br.com.bancovictor.services.Tipo.SAQUE;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public final class ContaEspecial extends Conta {
 
-    private double limiteCredito;   // valor máximo do crédito
+    private final double limiteCredito;   // valor máximo do crédito
     private double creditoDisponivel; // crédito que ainda pode ser usado
 
     public ContaEspecial(int numeroConta, double saldoInicial, int id, String cpf) {

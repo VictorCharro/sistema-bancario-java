@@ -1,20 +1,18 @@
 package br.com.bancovictor.model;
 import br.com.bancovictor.services.Operacao;
-
+import static br.com.bancovictor.services.Tipo.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static br.com.bancovictor.services.Tipo.*;
-
 public abstract class Conta {
 
-    private int numeroConta;
+    private final int numeroConta;
     protected double saldo;
-    private int id;
+    private final int id;
     public LocalDateTime dataCriacao;
     protected ArrayList<Operacao> historico;
-    private String cpfCliente;
+    private final String cpfCliente;
 
     public Conta(int numeroConta, double saldoInicial, int id, String cpf) {
         this.numeroConta = numeroConta;
@@ -106,8 +104,8 @@ public abstract class Conta {
 
         // Verifica saldo disponível considerando crédito se for ContaEspecial
         double saldoDisponivel = saldo;
-        if (this instanceof ContaEspecial) {
-            saldoDisponivel += ((ContaEspecial) this).getCreditoDisponivel();
+        if (this instanceof ContaEspecial contaEspecial) {
+            saldoDisponivel += contaEspecial.getCreditoDisponivel();
         }
 
         if (saldoDisponivel < quantidade) {
