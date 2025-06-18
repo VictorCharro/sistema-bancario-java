@@ -9,11 +9,16 @@ Projeto simples que simula um sistema bancário com contas normais e contas espe
 - Sacar dinheiro, com limite de crédito para contas especiais
 - Transferir valores entre contas
 - Visualizar extrato e informações da conta
+- Tratamento personalizado de exceções:
+  - CPF duplicado
+  - Conta não encontrada
+  - Saldo insuficiente
+  - Valor inválido (ex: depósito ou saque menor ou igual a zero)
 
-## Tecnologias
-
-- Java (versão 11 ou superior)
-- Orientação a Objetos
+## Tecnologias usadas
+- Java 11+
+- Programação Orientada a Objetos
+- Exceções personalizadas
 
 ## Como usar
 
