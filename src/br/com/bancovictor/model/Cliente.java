@@ -43,8 +43,7 @@ public class Cliente {
                 '}';
     }
 
-    public static String lerCPF(String next) {
-        Scanner sc = new Scanner(System.in);
+    public static String lerCPF(Scanner sc) {
         String cpf;
         while (true) {
             System.out.print("Digite o CPF (apenas números, 11 dígitos): ");
@@ -55,7 +54,6 @@ public class Cliente {
                 return cpf;
             } else {
                 System.out.println("\u001B[31mCPF inválido! Deve conter exatamente 11 dígitos numéricos.\u001B[0m");
-            sc.close();
             }
         }
     }

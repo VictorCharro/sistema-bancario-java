@@ -1,4 +1,7 @@
 package br.com.bancovictor.model;
+import br.com.bancovictor.exceptions.ContaNaoEncontradaException;
+import br.com.bancovictor.exceptions.SaldoInsuficienteException;
+import br.com.bancovictor.exceptions.ValorInvalidoException;
 import br.com.bancovictor.services.Operacao;
 import static br.com.bancovictor.services.Tipo.*;
 import java.time.LocalDateTime;
@@ -31,11 +34,11 @@ public abstract class Conta {
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             System.out.printf("Saldo atual: R$%.2f\n", this.saldo);
         } else {
-            System.out.println("ERRO! Digite um valor positivo para depositar!");
+            throw new ValorInvalidoException("Valor de depósito deve ser maior que zero");
         }
     }
 
-    public void sacar(double quantidade) {
+    public void sacar(double quantidade) throws SaldoInsuficienteException {
         if (quantidade <= saldo && quantidade > 0) {
             this.saldo -= quantidade;
             historico.add(new Operacao(SAQUE, quantidade));
@@ -43,9 +46,9 @@ public abstract class Conta {
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             System.out.printf("Saldo atual: R$%.2f\n", this.saldo);
         } else if (quantidade > saldo) {
-            System.out.printf("Saldo insuficiente! Saldo atual: R$ %.2f%n", getSaldo());
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque!");
         } else {
-            System.out.println("Digite um valor positivo!");
+            throw new ValorInvalidoException("Valor de saque deve ser maior que zero");
         }
     }
 
@@ -93,13 +96,12 @@ public abstract class Conta {
                 return conta;
             }
         }
-        return null;
+        throw new ContaNaoEncontradaException("Conta número " + numeroConta + " não encontrada");
     }
 
     public void transferir(double quantidade, Conta contaDestino) {
         if (quantidade <= 0) {
-            System.out.println("Digite um valor positivo!");
-            return;
+            throw new ValorInvalidoException("Valor de depósito deve ser maior que zero");
         }
 
         // Verifica saldo disponível considerando crédito se for ContaEspecial
@@ -109,8 +111,7 @@ public abstract class Conta {
         }
 
         if (saldoDisponivel < quantidade) {
-            System.out.println("SALDO DA CONTA INSUFICIENTE PARA TRANSFERIR!");
-            return;
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transferência!");
         }
 
         sacar(quantidade);
