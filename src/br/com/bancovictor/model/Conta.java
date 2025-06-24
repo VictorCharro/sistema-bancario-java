@@ -26,10 +26,12 @@ public abstract class Conta {
         this.cpfCliente = cpf;
     }
 
-    public void depositar(double quantidade) {
+    public void depositar(double quantidade, boolean registrarHistorico) {
         if (quantidade > 0) {
             this.saldo += quantidade;
-            historico.add(new Operacao(DEPOSITO, quantidade));
+            if (registrarHistorico == true) {
+                historico.add(new Operacao(DEPOSITO, quantidade));
+            }
             System.out.printf("Depósito de R$%.2f efetuado com sucesso em %s\n", quantidade,
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             System.out.printf("Saldo atual: R$%.2f\n", this.saldo);
@@ -38,10 +40,12 @@ public abstract class Conta {
         }
     }
 
-    public void sacar(double quantidade) throws SaldoInsuficienteException {
+    public void sacar(double quantidade, boolean registrarHistorico) throws SaldoInsuficienteException {
         if (quantidade <= saldo && quantidade > 0) {
             this.saldo -= quantidade;
-            historico.add(new Operacao(SAQUE, quantidade));
+            if (registrarHistorico == true) {
+                historico.add(new Operacao(SAQUE, quantidade));
+            }
             System.out.printf("Saque de R$%.2f efetuado com sucesso em %s\n", quantidade,
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             System.out.printf("Saldo atual: R$%.2f\n", this.saldo);
@@ -101,7 +105,7 @@ public abstract class Conta {
 
     public void transferir(double quantidade, Conta contaDestino) {
         if (quantidade <= 0) {
-            throw new ValorInvalidoException("Valor de depósito deve ser maior que zero");
+            throw new ValorInvalidoException("Valor de transferencia deve ser maior que zero");
         }
 
         // Verifica saldo disponível considerando crédito se for ContaEspecial
@@ -114,8 +118,8 @@ public abstract class Conta {
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar a transferência!");
         }
 
-        sacar(quantidade);
-        contaDestino.depositar(quantidade);
+        sacar(quantidade, false);
+        contaDestino.depositar(quantidade, false);
 
         historico.add(new Operacao(TRANSFERENCIA_REALIZADA, quantidade));
         contaDestino.historico.add(new Operacao(TRANSFERENCIA_RECEBIDA, quantidade));

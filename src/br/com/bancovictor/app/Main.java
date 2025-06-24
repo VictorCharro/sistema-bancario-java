@@ -83,7 +83,7 @@ public class Main {
 
                         System.out.print("Digite o valor a ser depositado: R$");
                         quantidade = sc.nextDouble();
-                        contaParaDeposito.depositar(quantidade);
+                        contaParaDeposito.depositar(quantidade, true);
                     }
                     catch (ContaNaoEncontradaException e) {
                         System.out.println("Erro: " + e.getMessage());
@@ -99,7 +99,7 @@ public class Main {
                         System.out.print("Digite o valor a ser sacado: R$");
                         quantidade = sc.nextDouble();
 
-                        contaParaSaque.sacar(quantidade);
+                        contaParaSaque.sacar(quantidade, true);
                     }
                     catch (ContaNaoEncontradaException | SaldoInsuficienteException e) {
                         System.out.println("Erro: " + e.getMessage());
